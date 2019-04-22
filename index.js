@@ -1,3 +1,5 @@
+module.exports = Phrase;
+
 // Reverses a string.
 String.prototype.reverse = function() {
   return Array.from(this).reverse().join("");
@@ -25,14 +27,15 @@ Array.prototype.last = function() {
 function Phrase(content) {
   this.content = content;
 
-  this.processor = function(string) {
-    let lowerCaseContent = string.toLowerCase();
-    return lowerCaseContent;
+  this.processedContent = function processedContent() {
+    return this.letters().toLowerCase();
   }
 
-  this.processedContent = function processedContent() {
-    return this.processor(this.content);
-  }
+  // Returns the letters in the content.
+  this.letters = function letters() {
+    const letterRegex = /[a-z]/gi;
+    return (this.content.match(letterRegex) || []).join("");
+    }
 
 // Returns true for a palindrome, false otherwise.
   this.palindrome = function palindrome() {
